@@ -5,26 +5,21 @@
 #         self.next = next
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        # two pointer
         # o(n) complexity, o(1) memory
-        if head.next == None:
-            return(None)
-        curr = head
-        counter = 0
-        while curr:
-            counter +=1
-            curr = curr.next
         
-        if n == counter:
-            return(head.next)
-        num = 1
-        prev = head
-        prev_source = prev
-        curr = head.next
-        while num != counter-n:
-            num+=1
-            curr = curr.next
-            prev = prev.next
+        dummy = ListNode(0,head)
+        left = dummy
+        right = head
         
-        curr = curr.next
-        prev.next = curr
-        return(prev_source)
+        while n > 0 and right:
+            right = right.next
+            n-=1
+            
+        while right:
+            right = right.next
+            left = left.next
+            
+        # deleting
+        left.next = left.next.next
+        return(dummy.next)
