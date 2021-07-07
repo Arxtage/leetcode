@@ -5,18 +5,14 @@
 #         self.next = next
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
-        #o(n) speed & memory
-        if not head:
-            return(head)
-        new = ListNode(head.val, None)
-        head = head.next
-        prev = new
+        #o(n) speed & o(1) memory
         
-        while True:
-            if head == None:
-                break
-            new = ListNode(head.val, prev)
-            head = head.next
-            prev = new
-        return(new)
-            
+        prev = None
+        curr = head
+        
+        while curr:
+            tmp_next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = tmp_next
+        return(prev)
