@@ -1,23 +1,17 @@
 class Solution:
     # middle out
     def countSubstrings(self, s: str) -> int:
-        L = 0
-        R = 0
-        count = 0
-        
-        def check(count, i, L, R):
-            if (i-L < 0) or (i+R >= len(s)):
-                return(count)
-            if s[i-L] == s[i+R]:
-                count += 1
-                L+=1
-                R+=1
-                count = check(count, i, L, R)
-            return(count)
 
+        res = 0
         for i in range(len(s)):
-            L, R = 0, 0
-            count = check(count, i, L, R)
-            L, R = 0, 1
-            count = check(count, i, L, R)
+            res += self.check(s, i, 0, 0)
+            res += self.check(s, i, 0, 1)
+        return(res)
+
+    def check(self, s, i, L, R):
+        count = 0
+        while (i-L >= 0) and (i+R < len(s)) and s[i-L] == s[i+R]:
+            count += 1
+            L+=1
+            R+=1
         return(count)
