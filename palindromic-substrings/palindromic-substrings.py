@@ -4,14 +4,14 @@ class Solution:
 
         res = 0
         for i in range(len(s)):
-            res += self.check(s, i, 0, 0)
-            res += self.check(s, i, 0, 1)
+            res += self.check(s, i, i)
+            res += self.check(s, i, i + 1)
         return(res)
 
-    def check(self, s, i, L, R):
+    def check(self, s, L, R):
         count = 0
-        while (i-L >= 0) and (i+R < len(s)) and s[i-L] == s[i+R]:
+        while (L >= 0) and (R < len(s)) and s[L] == s[R]:
             count += 1
-            L+=1
+            L-=1
             R+=1
         return(count)
