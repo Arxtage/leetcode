@@ -1,15 +1,15 @@
 class Solution:
-    # Use HashMap (dict) 
+    # Use Two Pointers
     # o(n)
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        d = dict() # val : index
-        for i in range(len(numbers)):
-            minus = target - numbers[i]
-            if target > 0 and minus < 0:
-                continue
-            if minus in d.keys():
-                return([d[minus]+1,i+1])
-            else:
-                d[numbers[i]] = i
             
+        L = 0
+        R = len(numbers) - 1
         
+        while True:
+            if numbers[L] + numbers[R] > target:
+                R-=1
+            elif numbers[L] + numbers[R] < target:
+                L+=1
+            elif numbers[L] + numbers[R] == target:
+                return([L+1, R+1])
