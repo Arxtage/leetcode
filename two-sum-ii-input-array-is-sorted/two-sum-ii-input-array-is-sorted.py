@@ -5,6 +5,8 @@ class Solution:
         d = dict() # val : index
         for i in range(len(numbers)):
             minus = target - numbers[i]
+            if target > 0 and minus < 0:
+                continue
             if minus in d.keys():
                 return([d[minus]+1,i+1])
             else:
