@@ -5,13 +5,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    # DFS
+    # BFS
     def maxDepth(self, root: TreeNode) -> int:
-        def dfs (node):
-            if not node:
-                return(False)
-            level = 1 + max(dfs(node.right), dfs(node.left))
-            return(level)  
-            
-            
-        return dfs(root) if root else 0
+        
+        if not root: return(0)
+        
+        # BFS
+        level = 0 
+        q = deque([root])
+        
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            level += 1      
+        return(level)
