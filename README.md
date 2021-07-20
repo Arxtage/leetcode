@@ -7,3 +7,6 @@ Created using [LeetHub](https://github.com/QasimWani/LeetHub).
 - Set **20 min pomodoro timer** and try to crack it yourself
 - If run out of time - check hints/discussions
 - Implement
+
+## 75 Must Do Leetcode questions
+https://leetcode.com/list/xi4ci4ig/
