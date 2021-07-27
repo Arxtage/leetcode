@@ -4,34 +4,29 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
+
+class Solution(object):
     def delNodes(self, root: TreeNode, to_delete: List[int]) -> List[TreeNode]:
         # O(N)
         res = []
         to_delete_set = set(to_delete)
-        if root.val not in to_delete_set:
-            res.append(root)
             
-        def dfs(node):
+        def dfs(node, parent_exist):
+            
             if not node:
-                return
+                return None
             
             # append
             if node.val in to_delete_set:
-                if node.left and node.left.val not in to_delete_set:
-                    res.append(node.left)
-                if node.right and node.right.val not in to_delete_set:
-                    res.append(node.right)
+                node.left = dfs(node.left, parent_exist=False)
+                node.right = dfs(node.right, parent_exist=False)
+                return None 
+            else:
+                if not parent_exist:
+                    res.append(node)
+                node.left = dfs(node.left, parent_exist=True)
+                node.right = dfs(node.right, parent_exist=True)
+                return node
             
-            # delete connection
-            if node.left and node.left.val in to_delete_set:
-                dfs(node.left)
-                node.left = None
-            if node.right and node.right.val in to_delete_set:
-                dfs(node.right)
-                node.right = None
-            dfs(node.left)
-            dfs(node.right)
-
-        dfs(root)
+        dfs(root,  parent_exist = False)
         return(res)
