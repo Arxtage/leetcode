@@ -3,20 +3,23 @@ class Solution:
         # DP O(n)
         n = len(nums1)
         
-        swap = [200000]*n
-        not_swap = [200000]*n
+        # swap = [200000]*n
+        # not_swap = [200000]*n
         
-        swap[0] = 1
-        not_swap[0] = 0
+        swap = 1
+        not_swap = 0
         
         for i in range(1, n):
+            curr_swap = n # max
+            curr_not_swap = n
             if nums1[i-1] < nums1[i] and nums2[i-1] < nums2[i]:
-                swap[i] = swap[i-1] + 1
-                not_swap[i] = not_swap[i-1]
+                curr_swap = swap + 1
+                curr_not_swap = not_swap
                 
             # cross check, *what if I have NOT swapped/swapped on prev iteration*
             if nums1[i-1] < nums2[i] and nums2[i-1] < nums1[i]:
-                swap[i] = min(swap[i], not_swap[i-1] + 1)
-                not_swap[i] = min(not_swap[i], swap[i-1])
-            
-        return min(swap[-1], not_swap[-1])
+                curr_swap = min(curr_swap, not_swap + 1)
+                curr_not_swap = min(curr_not_swap, swap)
+            swap = curr_swap
+            not_swap = curr_not_swap
+        return min(curr_swap, curr_not_swap)
