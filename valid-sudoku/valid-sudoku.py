@@ -1,55 +1,32 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        # BruteForce O(cols + rows + boxes) VEEERY SLOWWWW
+        # O(9*9)
         
-        ROWS, COLS = len(board), len(board[0])
+        rows = collections.defaultdict(set)
+        cols = collections.defaultdict(set)
+        boxes = collections.defaultdict(set)
         
         
-        # check rows
-        for i in range(ROWS):
-            main_set = set()
-            for j in range(COLS):
+        for i in range(9):
+            for j in range(9):
                 if board[i][j] =='.':
                     continue
                 val = int(board[i][j])
-                if 1 <= val <= 9 and val not in main_set:
-                    main_set.add(val)
-                else:
-                    return(False)
-        
-        # check cols
-        for j in range(COLS):
-            main_set = set()
-            for i in range(ROWS):
-                if board[i][j] =='.':
-                    continue
-                val = int(board[i][j])
-                if 1 <= val <= 9 and val not in main_set:
-                    main_set.add(val)
-                else:
-                    return(False)
-        
-        # not indluding
-        box_indexes = [(0,3,0,3),
-                          (0,3,3,6),
-                          (0,3,6,9),
-                          (3,6,0,3),
-                          (3,6,3,6),
-                          (3,6,6,9),
-                          (6,9,0,3),
-                          (6,9,3,6),
-                          (6,9,6,9)]
-        # check boxes
-        for box in box_indexes:
-            main_set = set()
-            for i in range(box[0], box[1]):
-                for j in range(box[2], box[3]):
-                    if board[i][j] =='.':
-                        continue
-                    val = int(board[i][j])
-                    if 1 <= val <= 9 and val not in main_set:
-                        main_set.add(val)
+                if 1 <= val <= 9:
+                    
+                    if val not in rows[i]:
+                        rows[i].add(val)
                     else:
                         return(False)
-        return(True)
+                    
+                    if val not in cols[j]:
+                        cols[j].add(val)
+                    else:
+                        return(False)
+                    
+                    if val not in boxes[(i//3, j//3)]:
+                        boxes[(i//3, j//3)].add(val)
+                    else:
+                        return(False)
+        return True
     
