@@ -4,15 +4,16 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def reverseList(self, head: ListNode) -> ListNode:
-        #o(n) speed & o(1) memory
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # O(N)
         
         prev = None
         curr = head
         
         while curr:
-            tmp_next = curr.next
+            saved_next = curr.next
             curr.next = prev
             prev = curr
-            curr = tmp_next
-        return(prev)
+            curr = saved_next
+        
+        return prev
