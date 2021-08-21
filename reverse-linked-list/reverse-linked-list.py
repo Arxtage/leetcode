@@ -9,7 +9,6 @@ class Solution:
         
         prev = None
         curr = head
-        
         while curr:
             saved_next = curr.next
             curr.next = prev
