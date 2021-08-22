@@ -1,36 +1,30 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        # O(N*M)
-        ROWS = len(grid)
-        COLS = len(grid[0])
-        res = 0
-        def dfs(i, j):
-            # bottom-up
-            # init returns
-            if grid[i][j] == 0 or i < 0 or i == ROWS or j < 0 or j == COLS:
-                return
-            if i + 1 < ROWS and grid[i + 1][j] =='1':
-                grid[i + 1][j] = '0'
-                dfs(i + 1, j)
-                
-            if i - 1 >= 0 and grid[i - 1][j] =='1':
-                grid[i - 1][j] = '0'
-                dfs(i - 1, j)
-                
-            if j + 1 < COLS and grid[i][j + 1] =='1':
-                grid[i][j + 1] = '0'
-                dfs(i, j + 1)
-                
-            if j - 1 >= 0 and grid[i][j - 1] =='1':
-                grid[i][j - 1] = '0'
-                dfs(i, j - 1)
-                
-            grid[i][j] = '0'
-            return
+        # BFS O(N*M)
         
-        for i in range(ROWS):
-            for j in range(COLS):
-                if grid[i][j] == '1':
-                    res+=1
-                    dfs(i, j)
-        return(res)
+        rows, cols = len(grid), len(grid[0])
+        visited = set()
+        count_islands = 0
+        
+        def bfs(r, c):
+            q = collections.deque()
+            q.append((r, c))
+            visited.add((r, c))
+            
+            directions = [(0,1), (1,0), (-1,0), (0,-1)]
+            while q:
+                row, col = q.popleft()
+                for dr, dc in directions:
+                    rr, cc = row + dr, col + dc
+                    if rr in range(rows) and cc in range(cols) and (rr, cc) not in visited and grid[rr][cc] == '1':
+                        q.append((rr, cc))
+                        visited.add((rr, cc))
+                
+        
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == '1' and (r, c) not in visited:
+                    bfs(r, c)
+                    count_islands += 1
+                    
+        return count_islands
