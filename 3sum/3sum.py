@@ -6,6 +6,8 @@ class Solution:
         nums.sort()
         
         for i in range(len(nums)):
+            
+            # if first is positive, than the sum will be positiev, we need 0
             if nums[i] > 0:
                 break
                 
@@ -28,3 +30,4 @@ class Solution:
                     while L < R and nums[L] == nums[L - 1]:
                         L += 1
         return(res)
+                    
