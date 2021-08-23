@@ -1,23 +1,27 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        # O(N) )(N)
+        # O(N) O(1)
         # we can trap at each i position min(max_left, max_right) - height[i] water
         # we need max_left and max_right to each position
         
-        # create max_left and max_right arrays
+        max_left = 0
+        max_right = 0
         
-        max_left = [0]*len(height)
-        max_right = [0]*len(height)
+        L, R = 0, len(height) - 1
         
-        for i in range(1, len(height)):
-            max_left[i] = max(max_left[i-1], height[i-1])
-            max_right[len(height) - 1 - i] = max(max_right[len(height) - i], height[len(height) - i])
-            
         res = 0
-        
-        for i in range(len(height)):
-            count = min(max_left[i], max_right[i]) - height[i]
-            if count > 0:
-                res += count
+        while L <= R:
+            if max_left <= max_right:
+                # compute on L and shift
+                count = max_left - height[L]
+                if count > 0: 
+                    res += count
+                L += 1
+                max_left = max(max_left, height[L - 1])
+            else:
+                count = max_right - height[R]
+                if count > 0:
+                    res += count
+                R -= 1
+                max_right = max(max_right, height[R + 1])
         return res
-            
