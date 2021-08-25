@@ -16,16 +16,16 @@ class Solution:
         
         index = random.random() * self.total_weight
         
-        index
         L, R = 0, len(self.array)
+        
         while L < R:
             mid = (L+R)//2
-            if (mid-1 in range(len(self.array)) and self.array[mid-1] < index < self.array[mid]) or (mid-1 == -1 and index < self.array[mid]):
-                return len(self.array[:int(mid)])
-            elif self.array[mid] > index:
-                R = mid
+            
+            if self.array[mid] < index:
+                L = mid + 1
             else:
-                L = mid
+                R = mid
+        return L
                 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(w)
