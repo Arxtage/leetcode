@@ -22,11 +22,8 @@ class Solution:
         
         for key in reversed(keys):
             whole = num/key
-            # if whole >= 1:
-            #     res += int(whole) * hashmap[key]
-            #     num = num - int(whole) * key
-
-            res += int(whole) * hashmap[key]
-            num = num - int(whole) * key
+            if whole >= 1:
+                res += int(whole) * hashmap[key]
+                num = num - int(whole) * key
         return res
                  
