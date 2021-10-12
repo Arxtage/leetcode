@@ -6,16 +6,12 @@
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
-        # O(n+m)  O(n)
-        
-        hashsetA = set()
-        
-        while headA != None and headB != None:
-            hashsetA.add(headA)
-            headA = headA.next
-        
-        while headB != None:
-            if headB in hashsetA:
-                return headB
-            headB = headB.next
-        return None
+        pA = headA
+        pB = headB
+
+        while pA != pB:
+            
+            pA = headB if pA is None else pA.next
+            pB = headA if pB is None else pB.next
+
+        return pA
