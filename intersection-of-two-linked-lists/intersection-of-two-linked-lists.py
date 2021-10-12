@@ -11,7 +11,14 @@ class Solution:
 
         while pA != pB:
             
-            pA = headB if pA is None else pA.next
-            pB = headA if pB is None else pB.next
+            if pA is None:
+                pA = headB
+            else:
+                pA = pA.next
+                
+            if pB is None:
+                pB = headA 
+            else:
+                pB = pB.next   
 
         return pA
