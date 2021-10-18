@@ -29,5 +29,4 @@ class Solution:
             for j in range(COLS):
                 if grid[i][j] == 1:
                     dfs(i, j)
-                    break
-        return perimeter
+                    return perimeter
